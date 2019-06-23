@@ -1,0 +1,16 @@
+{
+  "name": "baseback",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "module": "main.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Renie Siqueira",
+  "license": "MIT",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "express": "^4.17.1"
+  }
+}
