@@ -3,7 +3,6 @@ import bodyParser from 'body-parser'
 
 import { setAllRoutes } from './routes/mainRouter'
 
-
 const defaultPort = 3000
 
 const logURLMappings = (expressInstance, logFn) => {
@@ -27,10 +26,10 @@ export const startServer = (expressInstance, port = defaultPort, logFn = console
 }
 
 const startApp = ({
-    expressLib: expressLib,
-    setRouteFn: setRouteFn,
-    port: port,
-    logFn: logFn
+    expressLib,
+    setRouteFn,
+    port,
+    logFn
 } = {
     expressLib: express,
     setRouteFn: setAllRoutes,
