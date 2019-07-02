@@ -1,14 +1,23 @@
 import express from 'express'
+import bodyParser from 'body-parser'
+
 import { setAllRoutes } from './routes/mainRouter'
 
 const defaultPort = 3000
 
-const logURLMappings = (expressInstance, logFn) =>
+const logURLMappings = (expressInstance, logFn) => {
     expressInstance._router.stack
       .filter(r => r.route)
-      .map(r => r.route.stack[0])
-      .map(r => `Path: ${r.regexp} Method: ${r.method}`)
+      .map(r => r.route)
+      .map(r => `${r.path} - ${r.stack[0].method} - ${r.stack[0].name}`)
       .forEach(r => logFn(r))
+}
+
+const getExpressInstance = (expressLib) => {
+    const instance = expressLib()
+    instance.use(bodyParser.json())
+    return instance
+}
 
 export const startServer = (expressInstance, port = defaultPort, logFn = console.log) => {
     logURLMappings(expressInstance, logFn)
@@ -28,7 +37,7 @@ const startApp = ({
     logFn: console.log
 }) => {
     startServer(
-        setRouteFn(expressLib()),
+        setRouteFn(getExpressInstance(expressLib)),
         port,
         logFn
     )
